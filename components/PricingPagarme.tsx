@@ -284,24 +284,7 @@ export const PricingPagarme: React.FC = () => {
 
   const plansData = {
     mensal: [
-      {
-        chips: 1,
-        name: "TESTE",
-        price: "2,50",
-        originalPrice: "5,00",
-        period: "/teste",
-        popular: false,
-        badge: "🧪 AMBIENTE DE TESTE",
-        subtext: "2,50 reais (Testes E2E)",
-        description: "Plano exclusivo para simulação de checkout e validação de Webhooks/CAPI.",
-        features: [
-          "2,50 Reais para teste de fluxo",
-          "Validação de Webhook",
-          "Disparo de Evento Purchase (Meta)",
-          "Redirecionamento Pagar.me V5"
-        ],
-        cta: "Garantir Plano TESTE 🔒"
-      },
+
       {
         chips: 5,
         name: "Starter",

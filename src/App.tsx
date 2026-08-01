@@ -9,7 +9,15 @@ import { FAQSection } from './components/FAQSection';
 import { BottomCTA } from './components/BottomCTA';
 import { Footer } from './components/Footer';
 
+import { Confirmado } from './components/Confirmado';
+
 function App() {
+  const isConfirmadoPage = window.location.pathname === '/confirmado';
+
+  if (isConfirmadoPage) {
+    return <Confirmado />;
+  }
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />

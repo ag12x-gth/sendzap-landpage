@@ -112,30 +112,35 @@ export const PricingPagarme: React.FC = () => {
     const productId = mapPlanToProductID(selectedPlan?.name || '', billingCycle);
 
     try {
-      const response = await fetch('https://agente-funil-checkout-production.up.railway.app/api/v1/checkout/sendzap', {
+      // 1. Enviar os dados do lead para a nossa API da Vercel
+      await fetch('/api/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          plan_name: selectedPlan?.name,
           product_id: productId,
-          lead_email: leadEmail,
           customer_name: customerName,
-          manychat_id: ''
+          customer_email: leadEmail
         })
-      });
+      }).catch(err => console.error("Erro ao salvar lead:", err));
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Erro ao gerar link de pagamento. Tente novamente.');
-      }
-
-      if (data.checkout_url) {
-        setCheckoutSuccess(true);
-        window.location.href = data.checkout_url;
+      setCheckoutSuccess(true);
+      
+      // 2. Redirecionar para o link estático da InfinitePay
+      const planName = selectedPlan?.name || '';
+      if (planName === 'TESTE') {
+        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/ZfFsAIhP4E';
+      } else if (planName === 'PRO') {
+        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/VnyPhdGK1W';
+      } else if (planName === 'MAX') {
+        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/ljSjRn5wbH';
+      } else if (selectedPlan && selectedPlan.price) {
+        const priceString = selectedPlan.price.replace('.', '');
+        window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;
       } else {
-        throw new Error('URL de checkout não retornada pelo servidor.');
+        throw new Error('Plano inválido para redirecionamento.');
       }
     } catch (err: any) {
       setCheckoutError(err.message || 'Falha na conexão com servidor. Verifique sua rede.');

@@ -113,6 +113,13 @@ export const Pricing: React.FC = () => {
     return () => window.removeEventListener('pageshow', handlePageShow);
   }, []);
 
+  const handleOpenCheckout = (plan: any) => {
+    if (plan && plan.price) {
+      const priceString = plan.price.replace('.', '');
+      window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;
+    }
+  };
+
   const handleZipCodeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     let cep = e.target.value.replace(/\D/g, '');
     if (cep.length > 8) cep = cep.slice(0, 8);

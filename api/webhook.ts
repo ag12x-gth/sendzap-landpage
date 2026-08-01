@@ -44,15 +44,18 @@ export default async function handler(req, res) {
       console.log("Enviando notificação para o Discord...");
       const valorFormatado = payload.paid_amount 
         ? `R$ ${(payload.paid_amount / 100).toFixed(2).replace('.', ',')}` 
-        : (payload.amount ? `R$ ${(payload.amount / 100).toFixed(2).replace('.', ',')}` : 'Valor não informado');
+        : 'N/A';
+
+      const discordMessage = {
+        content: `🎉 **NOVA VENDA APROVADA - SENDZAP** 🎉\n\n**Cliente:** ${payload.metadata?.customer_name || payload.customer?.name || payload.billing_details?.name || 'N/A'}\n**Email:** ${payload.customer?.email || payload.billing_details?.email || 'N/A'}\n**Valor:** ${valorFormatado}\n**ID:** ${payload.id || 'N/A'}`,
+        raw_payload_for_debug: payload
+      };
         
       promises.push(
         fetch(discordWebhookUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            content: `🎉 **NOVA VENDA APROVADA - SENDZAP** 🎉\n\n**Cliente:** ${payload.customer?.name || 'N/A'}\n**Email:** ${payload.customer?.email || 'N/A'}\n**Valor:** ${valorFormatado}\n**ID:** ${payload.invoice_slug || 'N/A'}`,
-          })
+          body: JSON.stringify(discordMessage)
         }).catch(err => console.error("Erro Discord:", err))
       );
     }

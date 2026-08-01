@@ -94,6 +94,7 @@ export const PricingPagarme: React.FC = () => {
   }, []);
 
   const handleOpenCheckout = (plan: any) => {
+    setSelectedPlan(plan);
     if (plan && plan.price) {
       const priceString = plan.price.replace('.', '');
       window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;

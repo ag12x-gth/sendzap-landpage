@@ -114,6 +114,7 @@ export const Pricing: React.FC = () => {
   }, []);
 
   const handleOpenCheckout = (plan: any) => {
+    setSelectedPlan(plan);
     if (plan && plan.price) {
       const priceString = plan.price.replace('.', '');
       window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;
@@ -140,12 +141,7 @@ export const Pricing: React.FC = () => {
     }
   };
 
-  const handleOpenCheckout = (plan: any) => {
-    if (plan && plan.price) {
-      const priceString = plan.price.replace('.', '');
-      window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;
-    }
-  };
+
 
   const generatePagarmeToken = async (walletPayload?: any, walletType?: 'google_pay' | 'apple_pay') => {
     // A chave pública deve vir das variáveis de ambiente (VITE_PAGARME_PUBLIC_KEY)

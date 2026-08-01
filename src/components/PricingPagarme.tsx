@@ -95,22 +95,7 @@ export const PricingPagarme: React.FC = () => {
 
   const handleOpenCheckout = (plan: any) => {
     setSelectedPlan(plan);
-    if (plan && plan.price) {
-      if (plan.name === 'TESTE') {
-        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/ZfFsAIhP4E';
-        return;
-      }
-      if (plan.name === 'PRO') {
-        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/VnyPhdGK1W';
-        return;
-      }
-      if (plan.name === 'MAX') {
-        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/ljSjRn5wbH';
-        return;
-      }
-      const priceString = plan.price.replace('.', '');
-      window.location.href = `https://pay.infinitepay.io/ag12-sendz/${priceString}`;
-    }
+    setIsCheckoutModalOpen(true);
   };
 
 

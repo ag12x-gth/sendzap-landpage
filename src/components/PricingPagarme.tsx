@@ -96,6 +96,10 @@ export const PricingPagarme: React.FC = () => {
   const handleOpenCheckout = (plan: any) => {
     setSelectedPlan(plan);
     if (plan && plan.price) {
+      if (plan.name === 'TESTE') {
+        window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/ZfFsAIhP4E';
+        return;
+      }
       if (plan.name === 'PRO') {
         window.location.href = 'https://checkout.infinitepay.io/ag12-sendz/VnyPhdGK1W';
         return;
@@ -293,7 +297,22 @@ export const PricingPagarme: React.FC = () => {
 
   const plansData = {
     mensal: [
-
+      {
+        chips: 1,
+        name: "TESTE",
+        price: "3,00",
+        originalPrice: "6,00",
+        period: "/teste",
+        popular: false,
+        badge: "TESTE",
+        subtext: "Apenas para teste de webhook",
+        description: "Compre este plano para verificar se o evento InfinitePay está chegando no painel do Webhook.",
+        features: [
+          "Dispara Webhook 100%",
+          "Custo de R$ 3,00 (PIX)"
+        ],
+        cta: "COMPRAR TESTE ⚡"
+      },
       {
         chips: 5,
         name: "Starter",
